@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.test.iot.service.UserService;
 
 public class UserServiceImpl implements UserService{
-
 	@Override
 	public ArrayList<HashMap<String, Object>> getUserList() {
 		return null;

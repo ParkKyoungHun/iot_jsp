@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserServlet extends HttpServlet {
+import com.test.iot.service.UserService;
+import com.test.iot.service.impl.UserServiceImpl;
 
+public class UserServlet extends HttpServlet {
+	UserService us = new UserServiceImpl();
 	public String getCommand(String uri) {
 		int idx = uri.lastIndexOf(".do");
 		if(idx!=-1) {
@@ -25,17 +28,17 @@ public class UserServlet extends HttpServlet {
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");
 		String uri = req.getRequestURI();
-		System.out.println("uri : " + uri);
 		String cmd = getCommand(uri);
-		if(cmd.equals("list")) {
-			
-		}else if(cmd.equals("view")) {
-			
+		System.out.println("cmd : " + cmd);
+		if(cmd.equals("user/list")) {
+			us.getUserList();
+		}else if(cmd.equals("user/view")) {
+			us.getUser();
 		}else {
 			cmd = "/common/error";
 		}
-		cmd += ".jsp";
-		RequestDispatcher rd = req.getRequestDispatcher(cmd);
+		cmd += ".jsp"; 
+		RequestDispatcher rd = req.getRequestDispatcher("/" + cmd);
 		rd.forward(req, res);
 	}
 	
