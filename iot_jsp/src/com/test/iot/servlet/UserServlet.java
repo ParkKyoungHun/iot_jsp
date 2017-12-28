@@ -45,6 +45,8 @@ public class UserServlet extends HttpServlet {
 			req.setAttribute("list", us.getUserList());
 		}else if(cmd.equals("view")) {
 			//us.getUser();
+		}else if(cmd.equals("insert")){
+			
 		}else {
 			cmd = "/common/error";
 		}
