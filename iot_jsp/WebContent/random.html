@@ -11,8 +11,8 @@ function generateHtml(){
 	var str = ""; 
 	for(var i=0;i<9;i++){
 		str += "<input type='button' value='폭탄찾기'";
-		if(rNum==i){
-			str+= " onclick='alert(\"찾았다 폭탄\")' ";
+		if(i==rNum){
+			str += " onclick='alert(\"찾았다 폭탄!!\")' "
 		}
 		str +=">";
 		if(i%3==2){
