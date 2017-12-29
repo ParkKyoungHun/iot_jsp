@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title> 
+</head>
+<script src="/js/test.js"></script>
+<script src="/js/jquery-3.2.1.js"></script>
+<script src="/js/ajax_util.js"></script>
+<script src="/ui/btsp3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap-theme.min.css"/>
+<link rel="stylesheet" href="/ui/common.css"/>
+<link rel="stylesheet" href="/ui/sign.css"/>
+<script>
+
+function checkValue(fObj){
+	var objs = $("input[data-val]");
+	for(var obj of objs){
+		var len = parseInt(obj.getAttribute("data-val"));
+		var value = obj.value.trim();
+		if(value.length<len){
+			alert(obj.getAttribute("data-msg"));
+			obj.value = "";
+			obj.focus();
+			return false;
+		}
+	}
+	return true;
+}
+
+</script>
+<body>
+<div class="container">
+	<form class="form-signin" method="get" action="./location.html" onsubmit="return checkValue(this)">
+		<h2 id="hText1" class="form">로그인</h2>
+		<h2 id="hText2" class="form-signin-heading">로그인</h2>
+		<label for="inputEmail" class="sr-only">ID</label> 
+		<input type="text"	id="userId" name="userId" 
+			class="form-control" placeholder="ID"
+			data-val="5" data-msg="아이디 입력하라고!!"
+			autofocus> 
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="userPwd" name="userPwd" 
+			class="form-control"
+			data-val="5" data-msg="비밀번호 입력하라고!!"
+			placeholder="Password">
+		<input  class="btn btn-lg btn-primary btn-block"
+			type="submit" id="loginBtn" value="Login">
+	</form>
+</div>
+</body>
+</html>

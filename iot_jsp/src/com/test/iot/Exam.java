@@ -8,6 +8,12 @@ public class Exam {
 	public int printTest() {
 		return 1;
 	}
+	public void test(int i) {
+		if(i==0){
+			return;
+		}
+		System.out.println("i가 0은 아니네요~");
+	}
 
 	public static void main(String[] args) {
 		HashMap<String, String> hm = new HashMap<String, String>();
