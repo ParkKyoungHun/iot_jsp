@@ -2,23 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title> 
+<title>Insert title here</title>
 </head>
 <script src="/js/test.js"></script>
 <script src="/js/jquery-3.2.1.js"></script>
 <script src="/js/ajax_util.js"></script>
 <script src="/ui/btsp3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="/ui/common.css"/>
-<link rel="stylesheet" href="/ui/sign.css"/>
+<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/ui/btsp3.3.2/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/ui/common.css" />
+<link rel="stylesheet" href="/ui/sign.css" />
 <script>
 
 function checkValue(fObj){
 	var objs = $("input[data-val]");
+	var param = "";
 	for(var obj of objs){
 		var len = parseInt(obj.getAttribute("data-val"));
+		param += "&" + obj.getAttribute("name");
 		var value = obj.value.trim();
+		param += "=" + value;
 		if(value.length<len){
 			alert(obj.getAttribute("data-msg"));
 			obj.value = "";
@@ -26,28 +29,37 @@ function checkValue(fObj){
 			return false;
 		}
 	}
-	return true;
+	param = param.substring(1);
+    $.ajax({
+    	url: "login_ok.jsp",
+    	data : param,
+    	type : "get",
+    	success: callback,
+        error:function(xhr,status,error){
+        	$("#result_div").html(xhr.responseText);
+        }
+    });
+}
+function callback(result){
+	$("#result_div").html(result);
 }
 
 </script>
 <body>
-<div class="container">
-	<form class="form-signin" method="get" action="./location.html" onsubmit="return checkValue(this)">
-		<h2 id="hText1" class="form">로그인</h2>
-		<h2 id="hText2" class="form-signin-heading">로그인</h2>
-		<label for="inputEmail" class="sr-only">ID</label> 
-		<input type="text"	id="userId" name="userId" 
-			class="form-control" placeholder="ID"
-			data-val="5" data-msg="아이디 입력하라고!!"
-			autofocus> 
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="userPwd" name="userPwd" 
-			class="form-control"
-			data-val="5" data-msg="비밀번호 입력하라고!!"
-			placeholder="Password">
-		<input  class="btn btn-lg btn-primary btn-block"
-			type="submit" id="loginBtn" value="Login">
-	</form>
-</div>
+	<div class="container">
+		<form class="form-signin" method="get" action="./login_ok.jsp">
+			<h2 id="hText2" class="form-signin-heading">로그인</h2>
+			<label for="inputEmail" class="sr-only">ID</label> <input type="text"
+				id="userId" name="userId" class="form-control" placeholder="ID"
+				data-val="4" data-msg="아이디 입력하라고!!" autofocus> <label
+				for="inputPassword" class="sr-only">Password</label> <input
+				type="password" id="userPwd" name="userPwd" class="form-control"
+				data-val="4" data-msg="비밀번호 입력하라고!!" placeholder="Password">
+			<input class="btn btn-lg btn-primary btn-block" type="button"
+				id="loginBtn" value="Login" onclick="checkValue()">
+		</form>
+	</div>
+	<div class="container" id="result_div">
+	</div>
 </body>
 </html>
